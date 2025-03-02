@@ -4,127 +4,170 @@
             "id": "1",
             "name": "Bobby Bob",
             "active": true,
-            "colony": "Earth"
+            "colonyId": "1"
         },
         {
             "id": "2",
             "name": "Rob Robot",
             "active": true,
-            "colony": "Earth"
+            "colonyId": "1"
         },
         {
             "id": "3",
             "name": "Ken Kenny",
             "active": true,
-            "colony": "Mars"
+            "colonyId": "2"
         },
         {
             "id": "4",
             "name": "Mandy Man",
             "active": false,
-            "colony": "Mars"
+            "colonyId": "2"
         },
         {
             "id": "5",
             "name": "Nash Natty",
             "active": true,
-            "colony": "Europa"
+            "colonyId": "3"
         }
     ],
     "colonies":[
         {
             "id": "1",
             "colonyName": "Earth",
-            "purchases": []
+            "inventory": []
         },
         {
             "id": "2",
             "colonyName": "Mars",
-            "purchases": []
+            "inventory": []
         },
         {
             "id": "3",
             "colonyName": "Europa",
-            "purchases": []
+            "inventory": []
         }
     ],
     "minerals":[
         {
             "id": "1",
-            "type": "Iron",
-            "location": [
-                {
-                    "colony": "Earth",
-                    "quanitiy": 10
-                }, 
-                {
-                    "colony": "Mars",
-                    "quanitiy": 17
-                }
-            ]
+            "type": "Iron"
         },
         {
             "id": "2",
-            "type": "Magnesium",
-            "location": [
-                {
-                    "colony": "Earth",
-                    "quanitiy": 6  
-                },
-                {
-                    "colony": "Mars",
-                    "quanitiy": 0
-                }, 
-                {
-                    "colony": "Europa",
-                    "quanitiy": 15
-                }
-            ]
+            "type": "Magnesium"
         },
         {
             "id": "3",
-            "type": "Carbon",
-            "location": [
-                {
-                    "colony": "Earth",
-                    "quanitiy": 20
-                }, 
-                {
-                    "colony": "Mars",
-                    "quanitiy": 8
-                },
-                {
-                    "colony": "Europa",
-                    "quanitiy": 16
-                }
-            ]
+            "type": "Carbon"
+        },
+        {
+            "id": "4",
+            "type": "Titanium"
+        },
+        {
+            "id": "5",
+            "type": "Radon"
+        },
+        {
+            "id": "6",
+            "type": "Lithium"
         }
     ],
     "facilityMinerals": [
         {
             "id": "1",
             "facilityName": "Io",
-            "active": true
+            "active": true,
+            "inventory": [
+                {
+                    "mineralId": "1",
+                    "quanity": 5
+                },
+                {
+                    "mineralId": "2", 
+                    "quanity": 10
+                },
+                {
+                    "mineralId": "3",
+                    "quanity": 12
+                }
+            ]
         },
         {
             "id": "2",
-            "facilityName": "Bandi",
-            "active": true
+            "facilityName": "Mimus",
+            "active": true,
+            "inventory": [
+                {
+                    "mineralId": "1",
+                    "quanity": 10
+                },
+                {
+                    "mineralId": "4", 
+                    "quanity": 15
+                },
+                {
+                    "mineralId": "6",
+                    "quanity": 8
+                }
+            ]
         },
         {
             "id": "3",
-            "facilityName": "Rondo",
-            "active": true
+            "facilityName": "Titan",
+            "active": false,
+            "inventory": [
+                {
+                    "mineralId": "3",
+                    "quanity": 19
+                }
+            ]
         },
         {
             "id": "4",
-            "facilityName": "Fern",
-            "active": false
+            "facilityName": "Dione",
+            "active": true,
+            "inventory": [
+                {
+                    "mineralId": "3",
+                    "quanity": 12
+                },
+                {
+                    "mineralId": "4",
+                    "quanity": 15
+                }
+            ]
         },
         {
             "id": "5",
-            "facilityName": "Den",
-            "active": true
+            "facilityName": "Callisto",
+            "active": true,
+            "inventory": [
+                {
+                    "mineralId": "5",
+                    "quanity": 22
+                }
+            ]
+        },
+        {
+            "id": "6",
+            "facilityName": "Phobos",
+            "active": true,
+            "inventory": [
+                {
+                    "mineralId": "2",
+                    "quanity": 16
+                },
+                {
+                    "mineralId": "3",
+                    "quanity": 10
+                },
+                {
+                    "mineralId": "6",
+                    "quanity": 18
+                }
+            ]
         }
     ]
 }

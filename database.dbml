@@ -8,7 +8,7 @@ Table governors {
 Table colonies {
     id number [primary key]
     colonyName string 
-    inventory map()
+    inventory map() 
 }
 
 Table minerals {
@@ -20,5 +20,5 @@ Table facilityMinerals {
     id number [primary key]
     facilityName string
     active boolean
-    mineralMap map()
+    inventory map()
 }
