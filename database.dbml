@@ -1,0 +1,37 @@
+Table governors {
+    id string [primary key]
+    name string
+    active boolean
+    colonyId string
+}
+
+Table colonies {
+    id string [primary key]
+    colonyName string
+}
+
+Table minerals {
+    id string [primary key]
+    name string
+}
+
+Table colonyInventory {
+    id string [primary key]
+    governorId string [ref: > governors.id]
+    colonyId string [ref: > colonies.id]   // Reference to colonies table
+    mineralId string [ref: > minerals.id]   // Reference to minerals table
+    quantity number                          // Quantity of the mineral in this colony
+}
+
+Table facilityMinerals {
+    id string [primary key]
+    facilityName string
+    active boolean
+}
+
+Table facilityInventory {
+    id string [primary key]
+    facilityId string [ref: > facilityMinerals.id]
+    mineralId string [ref: > minerals.id]
+    quantity number
+}
