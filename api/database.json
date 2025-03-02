@@ -1,4 +1,130 @@
 {
-    "minerals":[],
-    "facilityMinerals": []
+    "governors":[
+        {
+            "id": "1",
+            "name": "Bobby Bob",
+            "active": true,
+            "colony": "Earth"
+        },
+        {
+            "id": "2",
+            "name": "Rob Robot",
+            "active": true,
+            "colony": "Earth"
+        },
+        {
+            "id": "3",
+            "name": "Ken Kenny",
+            "active": true,
+            "colony": "Mars"
+        },
+        {
+            "id": "4",
+            "name": "Mandy Man",
+            "active": false,
+            "colony": "Mars"
+        },
+        {
+            "id": "5",
+            "name": "Nash Natty",
+            "active": true,
+            "colony": "Europa"
+        }
+    ],
+    "colonies":[
+        {
+            "id": "1",
+            "colonyName": "Earth",
+            "purchases": []
+        },
+        {
+            "id": "2",
+            "colonyName": "Mars",
+            "purchases": []
+        },
+        {
+            "id": "3",
+            "colonyName": "Europa",
+            "purchases": []
+        }
+    ],
+    "minerals":[
+        {
+            "id": "1",
+            "type": "Iron",
+            "location": [
+                {
+                    "colony": "Earth",
+                    "quanitiy": 10
+                }, 
+                {
+                    "colony": "Mars",
+                    "quanitiy": 17
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "type": "Magnesium",
+            "location": [
+                {
+                    "colony": "Earth",
+                    "quanitiy": 6  
+                },
+                {
+                    "colony": "Mars",
+                    "quanitiy": 0
+                }, 
+                {
+                    "colony": "Europa",
+                    "quanitiy": 15
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "type": "Carbon",
+            "location": [
+                {
+                    "colony": "Earth",
+                    "quanitiy": 20
+                }, 
+                {
+                    "colony": "Mars",
+                    "quanitiy": 8
+                },
+                {
+                    "colony": "Europa",
+                    "quanitiy": 16
+                }
+            ]
+        }
+    ],
+    "facilityMinerals": [
+        {
+            "id": "1",
+            "facilityName": "Io",
+            "active": true
+        },
+        {
+            "id": "2",
+            "facilityName": "Bandi",
+            "active": true
+        },
+        {
+            "id": "3",
+            "facilityName": "Rondo",
+            "active": true
+        },
+        {
+            "id": "4",
+            "facilityName": "Fern",
+            "active": false
+        },
+        {
+            "id": "5",
+            "facilityName": "Den",
+            "active": true
+        }
+    ]
 }

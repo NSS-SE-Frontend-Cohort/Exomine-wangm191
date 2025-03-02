@@ -1,0 +1,24 @@
+Table governors {
+    id number [primary key]
+    name string
+    active boolean
+    colonyId number
+}
+
+Table colonies {
+    id number [primary key]
+    colonyName string 
+    inventory map()
+}
+
+Table minerals {
+    id number [primary key]
+    name string
+}
+
+Table facilityMinerals {
+    id number [primary key]
+    facilityName string
+    active boolean
+    mineralMap map()
+}
