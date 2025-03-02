@@ -34,18 +34,15 @@
     "colonies":[
         {
             "id": "1",
-            "colonyName": "Earth",
-            "inventory": []
+            "colonyName": "Earth"
         },
         {
             "id": "2",
-            "colonyName": "Mars",
-            "inventory": []
+            "colonyName": "Mars"
         },
         {
             "id": "3",
-            "colonyName": "Europa",
-            "inventory": []
+            "colonyName": "Europa"
         }
     ],
     "minerals":[
@@ -74,100 +71,88 @@
             "type": "Lithium"
         }
     ],
-    "facilityMinerals": [
+    "facilities": [
         {
             "id": "1",
             "facilityName": "Io",
-            "active": true,
-            "inventory": [
-                {
-                    "mineralId": "1",
-                    "quanity": 5
-                },
-                {
-                    "mineralId": "2", 
-                    "quanity": 10
-                },
-                {
-                    "mineralId": "3",
-                    "quanity": 12
-                }
-            ]
+            "active": true
         },
         {
             "id": "2",
             "facilityName": "Mimus",
-            "active": true,
-            "inventory": [
-                {
-                    "mineralId": "1",
-                    "quanity": 10
-                },
-                {
-                    "mineralId": "4", 
-                    "quanity": 15
-                },
-                {
-                    "mineralId": "6",
-                    "quanity": 8
-                }
-            ]
+            "active": true
         },
         {
             "id": "3",
             "facilityName": "Titan",
-            "active": false,
-            "inventory": [
-                {
-                    "mineralId": "3",
-                    "quanity": 19
-                }
-            ]
+            "active": false
         },
         {
             "id": "4",
             "facilityName": "Dione",
-            "active": true,
-            "inventory": [
-                {
-                    "mineralId": "3",
-                    "quanity": 12
-                },
-                {
-                    "mineralId": "4",
-                    "quanity": 15
-                }
-            ]
+            "active": true
         },
         {
             "id": "5",
             "facilityName": "Callisto",
-            "active": true,
-            "inventory": [
-                {
-                    "mineralId": "5",
-                    "quanity": 22
-                }
-            ]
+            "active": true
+        }
+    ], 
+    "facilityInventory": [
+        {
+            "id": "1",
+            "facilityId": "1",
+            "mineralId": "1",
+            "quanity": 55
+        },
+        {
+            "id": "2",
+            "facilityId": "1",
+            "mineralId": "2",
+            "quanity": 50
+        },
+        {
+            "id": "3",
+            "facilityId": "1",
+            "mineralId": "3",
+            "quanity": 58
+        },
+        {
+            "id": "4",
+            "facilityId": "2",
+            "mineralId": "2",
+            "quanity": 52
+        },
+        {
+            "id": "5",
+            "facilityId": "2",
+            "mineralId": "3",
+            "quanity": 59
         },
         {
             "id": "6",
-            "facilityName": "Phobos",
-            "active": true,
-            "inventory": [
-                {
-                    "mineralId": "2",
-                    "quanity": 16
-                },
-                {
-                    "mineralId": "3",
-                    "quanity": 10
-                },
-                {
-                    "mineralId": "6",
-                    "quanity": 18
-                }
-            ]
+            "facilityId": "3",
+            "mineralId": "3",
+            "quanity": 57
+        },
+        {
+            "id": "7",
+            "facilityId": "4",
+            "mineralId": "4",
+            "quanity": 55
+        },
+        {
+            "id": "8",
+            "facilityId": "5",
+            "mineralId": "1",
+            "quanity": 54
+        },
+        {
+            "id": "9",
+            "facilityId": "5",
+            "mineralId": "5",
+            "quanity": 53
         }
-    ]
+    ],
+    "colonyInventory": []   
 }

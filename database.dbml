@@ -1,24 +1,37 @@
 Table governors {
-    id number [primary key]
+    id string [primary key]
     name string
     active boolean
-    colonyId number
+    colonyId string
 }
 
 Table colonies {
-    id number [primary key]
-    colonyName string 
-    inventory map() 
+    id string [primary key]
+    colonyName string
 }
 
 Table minerals {
-    id number [primary key]
+    id string [primary key]
     name string
 }
 
+Table colonyInventory {
+    id string [primary key]
+    governorId string [ref: > governors.id]
+    colonyId string [ref: > colonies.id]   // Reference to colonies table
+    mineralId string [ref: > minerals.id]   // Reference to minerals table
+    quantity number                          // Quantity of the mineral in this colony
+}
+
 Table facilityMinerals {
-    id number [primary key]
+    id string [primary key]
     facilityName string
     active boolean
-    inventory map()
+}
+
+Table facilityInventory {
+    id string [primary key]
+    facilityId string [ref: > facilityMinerals.id]
+    mineralId string [ref: > minerals.id]
+    quantity number
 }
