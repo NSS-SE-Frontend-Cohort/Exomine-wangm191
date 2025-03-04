@@ -1,6 +1,8 @@
+import { setGovernorId } from "./TransientState.js"
+
 export const handleGovernorChange = (changeEvent) => {
-    if (changeEvent.target.id === 'governors') {
-        setGovernorChange(JSON.parse(changeEvent.target.value))
+    if (changeEvent.target.id === "governors") {
+        setGovernorId(JSON.parse(changeEvent.target.value))
     }
 }
 
@@ -12,14 +14,14 @@ export const ChooseGovernor = async () => {
 
     let governorHTML = "<div>Choose a governor</div>"
     governorHTML += "'<select id='governors'>"
-    governorHTML += "<option value='0'>Select governor</option>"
+    governorHTML += "<option value='' disabled selected hidden>Select governor</option>"
     
 
     const governorChoices = governors.map(governor => {
-        return `<option value=${governor.id}>${governor.name}</option>`
+        return `<option value="${governor.id}" ${governor.active ? '' : "disabled"}>${governor.name}</option>`
     }) 
 
-    governorHTML += governorChoices.join('')
+    governorHTML += governorChoices.join("")
     governorHTML += "<select/>"
     return governorHTML
 }
