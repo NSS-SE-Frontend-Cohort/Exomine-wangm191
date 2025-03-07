@@ -2,7 +2,7 @@ import { getSelectedMinerals } from "./TransientState.js";
 
 export const fetchSelectedMinerals = async (selectedMineralsArray) => {
     const ids = selectedMineralsArray.join(',')
-    const response = await fetch(`http://localhost:8088/minerals?id=${ids}`))
+    const response = await fetch(`http://localhost:8088/minerals?id=${ids}`)
     const selectedMinerals = response.json()
     
     return selectedMinerals.length ? minerals : []
