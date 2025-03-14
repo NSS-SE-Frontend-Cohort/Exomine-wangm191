@@ -1,3 +1,5 @@
+import { dispatchTransientState } from "../events/events.js"
+
 const state = {
     governorId: "0",
     colonyId: "0",
@@ -8,43 +10,45 @@ const state = {
 export const setGovernorId = (governorIdChange) => {
     state.governorId = governorIdChange
     console.log(state)
-    document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 export const setColonyId = (colonyIdChange) => {
     state.colonyId = colonyIdChange
     console.log(state)
-    document.dispatchEvent(new CustomEvent("stateChanged"))
+    dispatchTransientState("colonyId", colonyIdChange)
 }
 
 export const setFacilityId = (facilityIdChange) => {
     state.facilityId = facilityIdChange
     console.log(state)
-    document.dispatchEvent(new CustomEvent("stateChanged"))
+    dispatchTransientState("facilityId", facilityIdChange)
 }
 
 export const setSelectedMinerals = (mineralId, selected) => {
+    // If mineral is being selected, add to the selected list
     if (selected) {
         if (!state.selectedMinerals.includes(mineralId)) {
-            state.selectedMinerals.push(mineralId);
+            state.selectedMinerals.push(mineralId) // Add the mineralId to selected list
         }
     } else {
-        const index = state.selectedMinerals.indexOf(mineralId);
+        // If mineral is being deselected, remove from the selected list
+        const index = state.selectedMinerals.indexOf(mineralId)
         if (index !== -1) {
-            state.selectedMinerals.splice(index, 1);
+            state.selectedMinerals.splice(index, 1)
         }
     }
 
-    console.log(state);
-    document.dispatchEvent(new CustomEvent("stateChanged"));
-};
+    console.log(state); // For debugging (you should see the global selected minerals)
 
+    // Dispatch state change to other parts of the application (e.g., cart, etc.)
+    dispatchTransientState("spaceCart")
+}
+
+export const getTransientState = () => state
 
 export const getSelectedMinerals = () => {
     return state.selectedMinerals
 }
-
-export const getTransientState = () => ({ ...state })
 
 export const resetState = () => {
     state.governorId = "0"
@@ -70,5 +74,5 @@ export const purchaseMineral = () => {
 
 
 
-    document.dispatchEvent(new CustomEvent("stateChanged"))
+    document.dispatchEvent(new CustomEvent("purchasedMinerals"))
 }
