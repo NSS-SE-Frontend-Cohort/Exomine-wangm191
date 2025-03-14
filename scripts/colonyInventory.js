@@ -1,3 +1,10 @@
+export const getColonyInventory = async (id) => {
+    const response = await fetch(`http://localhost:8088/colonyInventory?colonyId=${id}`)
+    const inventory = await response.json()
+
+    return inventory
+}
+
 export const displayColonyInventory = async (id) => {
     const response = await fetch(`http://localhost:8088/colonyInventory?colonyId=${id}`)
     const inventory = await response.json()

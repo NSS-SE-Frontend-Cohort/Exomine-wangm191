@@ -14,6 +14,13 @@ export const handleSelectedMinerals = (changeEvent) => {
     }
 };
 
+export const getFacilityInventory = async (id) => {
+    const response = await fetch(`http://localhost:8088/facilityInventory?facilityId=${id}`)
+    const inventory = await response.json()
+
+    return inventory
+}
+
 
 export const displayFacilityInventory = async (id) => {
     // Fetch facility inventory data
@@ -54,15 +61,16 @@ export const displayFacilityInventory = async (id) => {
     const facilityMinerals = expandedInventory.map(item => {
         // Check if the mineral is selected globally (independent of facility)
         const isSelected = selectedMinerals.includes(item.mineralId) ? 'checked' : ''
-
+    
         return `
             <div>
-                <input type="checkbox" name="minerals" value="${item.mineralId}" ${item.quanity === 0 ? "disabled" : ""} ${isSelected}>
-                ${item.quanity} tones of ${item.mineral}
-            </input>
+                <input type="checkbox" name="minerals" value="${item.mineralId}" 
+                    ${item.quantity === 0 ? "disabled" : ""} ${isSelected}>
+                ${item.quantity} tones of ${item.mineral}
             </div>
         `
     }).join("")
+    
 
     facilityHTML += facilityMinerals
 
