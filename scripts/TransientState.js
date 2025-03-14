@@ -1,4 +1,6 @@
 import { dispatchTransientState } from "../events/events.js"
+import { getColonyInventory } from "./colonyInventory.js"
+import { getFacilityInventory } from "./facilityInventory.js"
 
 const state = {
     governorId: "0",
@@ -59,7 +61,7 @@ export const resetState = () => {
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
-export const purchaseMineral = () => {
+export const purchaseMineral = async () => {
     /*
         Does the chosen governor's colony already own some of this mineral?
             - If yes, what should happen?
@@ -72,7 +74,78 @@ export const purchaseMineral = () => {
         Only the foolhardy try to solve this problem with code.
     */
 
+    debugger
+    const state = getTransientState()
 
+    const selectedMinerals = state.selectedMinerals
+
+    const colonyInventory = await getColonyInventory(state.colonyId)
+
+    const facilityInventory = await getFacilityInventory(state.facilityId)
+
+    // Assuming facilityInventory is the array provided
+    await Promise.all(facilityInventory.map(async (item) => {
+        const isSelected = selectedMinerals.includes(item.mineralId); // Check if the mineral is selected
+
+        if (isSelected && item.quantity > 0) {  // Ensure quantity is greater than 0
+            const updateFacilityMineral = {
+                ...item,
+                quantity: item.quantity - 1 // Decrease quantity by 1
+            };
+            console.log(updateFacilityMineral)
+
+            // // Use item.id to update the correct inventory entry
+            // await fetch(`http://localhost:8088/facilityInventory/${item.id}`, {
+            //     method: "PUT",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify(updateFacilityMineral) // Send the updated inventory data
+            // });
+        }
+        else {
+            console.log("No more minerals in facility, quantity is at 0")
+        }
+    }));
+
+    await Promise.all(colonyInventory.map(async (item) => {
+        const isSelected = selectedMinerals.includes(item.mineralId)
+
+        if (isSelected && item.quantity > 0) {
+            const updateColonyMineral = {
+                ...item,
+                quantity: item.quantity + 1
+            }
+
+            // await fetch(`http://localhost:8088/colonyInventory/${item.id}`, {
+            //     method: "PUT",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify(updateColonyMineral)
+            // });
+            console.log(updateColonyMineral)
+        }
+        else {
+            const newColonyMineral = {
+                governorId: state.governorId,
+                colonyId: state.colonyId,
+                facilityId: state.facilityId,
+                mineralId: state.mineralId,
+                quantity: 1
+            }
+            console.log(newColonyMineral)
+            // await fetch(`http://localhost:8088/colonyInventory`, {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify(newColonyMineral)
+            // });
+    
+            console.log(`New Mineral added to Colony Inventory`)
+        }
+    }))
 
     document.dispatchEvent(new CustomEvent("purchasedMinerals"))
 }
