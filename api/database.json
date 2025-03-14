@@ -48,27 +48,27 @@
     "minerals":[
         {
             "id": "1",
-            "type": "Iron"
+            "name": "Iron"
         },
         {
             "id": "2",
-            "type": "Magnesium"
+            "name": "Magnesium"
         },
         {
             "id": "3",
-            "type": "Carbon"
+            "name": "Carbon"
         },
         {
             "id": "4",
-            "type": "Titanium"
+            "name": "Titanium"
         },
         {
             "id": "5",
-            "type": "Radon"
+            "name": "Radon"
         },
         {
             "id": "6",
-            "type": "Lithium"
+            "name": "Lithium"
         }
     ],
     "facilities": [
