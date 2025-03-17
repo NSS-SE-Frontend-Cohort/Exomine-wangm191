@@ -1,12 +1,11 @@
 import { dispatchTransientState } from "../events/events.js"
 import { getColonyInventory } from "./colonyInventory.js"
-import { getFacilityInventory } from "./facilityInventory.js"
+import { getAllFacilities } from "./facilityInventory.js"
 
 const state = {
     governorId: "0",
     colonyId: "0",
-    facilityId: "0",
-    selectedMinerals: []
+    selectedMinerals: new Map()
 }
 
 export const setGovernorId = (governorIdChange) => {
@@ -21,30 +20,28 @@ export const setColonyId = (colonyIdChange) => {
 }
 
 export const setFacilityId = (facilityIdChange) => {
-    state.facilityId = facilityIdChange
-    console.log(state)
+    console.log(facilityIdChange)
     dispatchTransientState("facilityId", facilityIdChange)
 }
 
-export const setSelectedMinerals = (mineralId, selected) => {
-    // If mineral is being selected, add to the selected list
-    if (selected) {
-        if (!state.selectedMinerals.includes(mineralId)) {
-            state.selectedMinerals.push(mineralId) // Add the mineralId to selected list
-        }
-    } else {
-        // If mineral is being deselected, remove from the selected list
-        const index = state.selectedMinerals.indexOf(mineralId)
-        if (index !== -1) {
-            state.selectedMinerals.splice(index, 1)
-        }
+export const setSelectedMinerals = (facilityId, mineralId, selected) => {
+    // If the facilityId does not exist in the map, initialize it with an empty Set
+    if (!state.selectedMinerals.has(String(facilityId))) {
+        state.selectedMinerals.set(String(facilityId), new Set());
     }
 
-    console.log(state); // For debugging (you should see the global selected minerals)
+    const facilitySelectedMinerals = state.selectedMinerals.get(facilityId);
 
-    // Dispatch state change to other parts of the application (e.g., cart, etc.)
-    dispatchTransientState("spaceCart")
-}
+    if (selected) {
+        // Add mineralId to the Set (it automatically ensures no duplicates)
+        facilitySelectedMinerals.add(mineralId)
+    } else {
+        // Remove mineralId from the Set
+        facilitySelectedMinerals.delete(mineralId)
+    }
+
+    dispatchTransientState("spaceCart");
+};
 
 export const getTransientState = () => state
 
@@ -52,13 +49,21 @@ export const getSelectedMinerals = () => {
     return state.selectedMinerals
 }
 
+export const getSelectedMineralsFromFacility = (facilityId) => {
+    // If the facilityId exists, return the minerals
+    if (state.selectedMinerals.has(String(facilityId))) {
+        return Array.from(state.selectedMinerals.get(String(facilityId)));
+    }
+    // If facilityId is not found, return an empty array
+    console.log('No minerals found for this facilityId');
+    return [];
+};
+
 export const resetState = () => {
     state.governorId = "0"
     state.colonyId = "0"
-    state.facilityId = "0"
     state.selectedMinerals = new Map()
     console.log(state)
-    document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 export const purchaseMineral = async () => {
@@ -75,77 +80,88 @@ export const purchaseMineral = async () => {
     */
 
     debugger
-    const state = getTransientState()
-
-    const selectedMinerals = state.selectedMinerals
+    const selectedMinerals = getSelectedMinerals()
 
     const colonyInventory = await getColonyInventory(state.colonyId)
 
-    const facilityInventory = await getFacilityInventory(state.facilityId)
+    const allFacilities = await getAllFacilities()
 
-    // Assuming facilityInventory is the array provided
-    await Promise.all(facilityInventory.map(async (item) => {
-        const isSelected = selectedMinerals.includes(item.mineralId); // Check if the mineral is selected
-
-        if (isSelected && item.quantity > 0) {  // Ensure quantity is greater than 0
-            const updateFacilityMineral = {
-                ...item,
-                quantity: item.quantity - 1 // Decrease quantity by 1
-            };
-            console.log(updateFacilityMineral)
-
-            // // Use item.id to update the correct inventory entry
-            // await fetch(`http://localhost:8088/facilityInventory/${item.id}`, {
-            //     method: "PUT",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify(updateFacilityMineral) // Send the updated inventory data
-            // });
-        }
-        else {
-            console.log("No more minerals in facility, quantity is at 0")
-        }
-    }));
-
-    await Promise.all(colonyInventory.map(async (item) => {
-        const isSelected = selectedMinerals.includes(item.mineralId)
-
-        if (isSelected && item.quantity > 0) {
-            const updateColonyMineral = {
-                ...item,
-                quantity: item.quantity + 1
-            }
-
-            // await fetch(`http://localhost:8088/colonyInventory/${item.id}`, {
-            //     method: "PUT",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify(updateColonyMineral)
-            // });
-            console.log(updateColonyMineral)
-        }
-        else {
-            const newColonyMineral = {
-                governorId: state.governorId,
-                colonyId: state.colonyId,
-                facilityId: state.facilityId,
-                mineralId: state.mineralId,
-                quantity: 1
-            }
-            console.log(newColonyMineral)
-            // await fetch(`http://localhost:8088/colonyInventory`, {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify(newColonyMineral)
-            // });
+    await Promise.all(allFacilities.map(async (facility) => {
+        // Check if the facilityId exists in selectedMinerals map
+        if (selectedMinerals.has(String(facility.facilityId))) {
+            const selectedMineralsForFacility = selectedMinerals.get(String(facility.facilityId))
     
-            console.log(`New Mineral added to Colony Inventory`)
+            // Check if the mineralId is in the set of selected minerals for that facility
+            const isSelected = selectedMineralsForFacility.has(facility.mineralId);
+    
+            if (isSelected && facility.quantity > 0) {
+                const updateFacilityMineral = {
+                    ...facility,
+                    quantity: facility.quantity - 1
+                };
+                console.log("Updated Facility Minerals", updateFacilityMineral);
+    
+                await fetch(`http://localhost:8088/facilityInventory/${facility.id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                       body: JSON.stringify(updateFacilityMineral)
+                })
+            } else {
+                   console.log("No more minerals in facility, quantity is at 0");
+            }
         }
     }))
+
+    await Promise.all(Array.from(selectedMinerals).map(async ([facilityId, mineralIds]) => {
+        // Loop through each mineralId for the current facilityId
+        await Promise.all(Array.from(mineralIds).map(async (mineralId) => {
+            // Check if the combination of facilityId and mineralId already exists in colonyInventory
+            const existingItem = colonyInventory.find(item => item.governorId === state.governorId && item.facilityId === facilityId && item.mineralId === mineralId)
+    
+            if (existingItem) {
+                if (existingItem.quantity > 0) {
+                    const updatedColonyMineral = {
+                        ...existingItem,
+                        quantity: existingItem.quantity + 1 
+                    };
+    
+                    await fetch(`http://localhost:8088/colonyInventory/${existingItem.id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(updatedColonyMineral)
+                    })
+    
+                    console.log("Updated Colony Mineral:", updatedColonyMineral)
+                }
+            } else {
+                // If it doesn't exist, create a new colony inventory entry
+                const newColonyMineral = {
+                    governorId: state.governorId,
+                    colonyId: state.colonyId,
+                    facilityId: facilityId, 
+                    mineralId: mineralId,
+                    quantity: 1 
+                };
+    
+                await fetch(`http://localhost:8088/colonyInventory`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newColonyMineral)
+                })
+    
+                console.log("New Colony Mineral:", newColonyMineral)
+                console.log("New Mineral added to Colony Inventory")
+            }
+        }))
+    }))
+    
+    resetState()
 
     document.dispatchEvent(new CustomEvent("purchasedMinerals"))
 }

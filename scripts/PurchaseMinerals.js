@@ -1,14 +1,16 @@
 import { purchaseMineral } from "./TransientState.js"
 
-export const handlePurchaseCLick = (eventClick) => {
-    if (eventClick.target.id === 'purchase'){
-        purchaseMineral()
+// Event handler for button click
+export const handlePurchaseClick = (eventClick) => {
+    if (eventClick.target && eventClick.target.id === 'purchase') {
+        purchaseMineral();
     }
 }
 
-export const createPurchaseCLick = () => {
+// Create button and add event listener
+export const createPurchaseClick = () => {
+    
+    document.addEventListener('click', handlePurchaseClick);
 
-    document.addEventListener('click', handlePurchaseCLick)
-
-    return "<article class='createPurchase'><button id='purchase'>Purchase Minerals</button></article>"
+    return "<article class='createPurchase'><button id='purchase'>Purchase Minerals</button></article>";
 }
