@@ -3,7 +3,7 @@ import { displayColonyInventory } from "./colonyInventory.js";
 import { displayFacilityInventory  } from "./facilityInventory.js";
 import { ChooseFacility } from "./ChooseFacility.js"
 import { ChooseGovernor } from "./ChooseGovernor.js"
-import { createPurchaseCLick } from "./PurchaseMinerals.js"
+import { createPurchaseClick } from "./PurchaseMinerals.js"
 import { updateSpaceCart } from "./SpaceCart.js"
 
 export const handleExomineListeners = () => {
@@ -37,7 +37,7 @@ export const ExomineDisplay = async () => {
     const facilityInventoryHTML = await displayFacilityInventory()
     const colonyInventoryHTML = await displayColonyInventory()
     const spaceCartHTML = await updateSpaceCart()
-    const createPurchaseHTML = createPurchaseCLick()
+    const createPurchaseHTML = createPurchaseClick()
     
     return `
         <header class="header">

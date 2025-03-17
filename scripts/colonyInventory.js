@@ -6,6 +6,7 @@ export const getColonyInventory = async (id) => {
 }
 
 export const displayColonyInventory = async (id) => {
+    debugger
     const response = await fetch(`http://localhost:8088/colonyInventory?colonyId=${id}`)
     const inventory = await response.json()
 
@@ -20,7 +21,7 @@ export const displayColonyInventory = async (id) => {
 
         return {
             ...item,
-            mineral: mineral ? mineral.name : null
+            name: mineral ? mineral.name : null
         }
     })
 
@@ -28,11 +29,21 @@ export const displayColonyInventory = async (id) => {
 
     let colonyHTML = colony ? `<h2>${colony.colonyName} Inventory</h2>` : "<h2>Colony Inventory</h2>"
 
-    const colonyMinerals = expandedInventory.map(item => {
-        return `<div ${item.quanity === 0 ? "disabled" : ""}>${item.quanity} tones of ${item.mineral}</div>`
+    const colonyMinerals = new Map()
+
+    expandedInventory.forEach(item => {
+        if (colonyMinerals.has(item.name)) {
+            colonyMinerals.set(item.name, colonyMinerals.get(item.name) + item.quantity)
+        } else {
+            colonyMinerals.set(item.name, item.quantity)
+        }
+    })
+
+    const mineralHTML = Array.from(colonyMinerals).map(([name, quantity]) => {
+        return `<div ${quantity === 0 ? "disabled" : ""}>${quantity} tones of ${name}</div>`
     }).join("")
 
-    colonyHTML += colonyMinerals
-    
+    colonyHTML += mineralHTML
+
     return colonyHTML
 }
