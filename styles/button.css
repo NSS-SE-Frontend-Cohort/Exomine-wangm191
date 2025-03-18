@@ -1,0 +1,34 @@
+#purchase {
+    background-color: skyblue;
+    border: 2px solid royalblue;
+    border-radius: 30px;
+    box-shadow: royalblue 4px 4px 0 0;
+    color: royalblue;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  #purchase:hover {
+    background-color: rgb(192, 219, 242);
+  }
+  
+  #purchase:active {
+    box-shadow: royalblue 2px 2px 0 0;
+    transform: translate(2px, 2px);
+  }
+  
+  @media (min-width: 768px) {
+    #purchase {
+      min-width: 120px;
+      padding: 0 25px;
+    }
+  }

@@ -53,7 +53,7 @@ export const displayFacilityInventory = async (id) => {
         const isSelected = selectedMinerals.includes(item.mineralId) ? 'checked' : ''
 
         return `
-            <div>
+            <div class="minerals__inventory">
                 <input type="checkbox" name="minerals" value="${item.mineralId}" 
                     ${item.quantity === 0 ? "disabled" : ""} ${isSelected} 
                     data-facility-id="${id}">

@@ -1,0 +1,52 @@
+.choices {
+    display: flex;
+    justify-content: center;
+}
+
+.options {
+    font-size: 22px;
+    margin: 0 5rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    justify-content: center;
+}
+
+.inventory {
+    
+    font-size: 18px;
+    margin: 1 rem;
+    border-radius: 0.5rem;
+}
+
+.facility__inventory {
+    color: greenyellow;
+}
+
+.colony__inventory {
+    color:plum;
+}
+
+.minerals__inventory {
+    display: flex;
+    justify-content: center;
+}
+
+.purchase__minerals {
+    display: flex;
+    justify-content: center;
+    border: 1rem;
+    padding: 1rem;
+}
+
+.space__cart {
+    color:palegoldenrod;
+    font-size: 22px;
+}
+
+#governors {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#facilities{
+    font-family: Arial, Helvetica, sans-serif;
+}
