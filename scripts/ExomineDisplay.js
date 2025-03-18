@@ -41,30 +41,32 @@ export const ExomineDisplay = async () => {
     
     return `
         <header class="header">
+            <img src="./images/logo.png" class="logo" />
             <h1 class="title">Solar System Mining Marketplace</h1>
         </header>
     
-        <article class="choices">
-            <section class="choices__governors options">
-                ${governorsHTML}
-            </section>
-    
-            <section class="choices__facilities options">
-                ${facilitiesHTML}
-            </section>
-        </article>
-        <article class="facility__inventory">
-                ${facilityInventoryHTML}
-        </article>
-        <article class="colony__inventory">
-                ${colonyInventoryHTML}
-        </article>
-        <article class="space__cart">
-                ${spaceCartHTML}
-        </article>
-        <article class="purchase__minerals">
-                ${createPurchaseHTML}
-        </article>
-
+        <div class="grid-container">
+            <article class="choices">
+                <section class="choices__governors options">
+                    ${governorsHTML}
+                </section>
+        
+                <section class="choices__facilities options">
+                    ${facilitiesHTML}
+                </section>
+            </article>
+            <article class="facility__inventory inventory">
+                    ${facilityInventoryHTML}
+            </article>
+            <article class="colony__inventory inventory">
+                    ${colonyInventoryHTML}
+            </article>
+            <article class="space__cart inventory">
+                    ${spaceCartHTML}
+            </article>
+            <article class="purchase__minerals">
+                    ${createPurchaseHTML}
+            </article>
+        </div>
     `
 }

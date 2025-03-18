@@ -1,0 +1,57 @@
+@import "details.css";
+@import "button.css";
+
+*,
+*::before, 
+*::after{
+    box-sizing: border-box;
+}
+
+
+body,
+button,
+input,
+select,
+textarea {
+	color: orange;
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+    background-color: rgb(2, 2, 50);
+    background-position: center;
+    background-size: 250%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.header {
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300, 1rem));
+    margin: 0 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.logo {
+    display: flex;
+    justify-content:space-around;
+    max-height: 10rem;
+    padding-right: 1rem;
+}
+
+.title {
+    text-align: center;
+    margin: 0.5rem;
+    padding-top: 2rem;
+}

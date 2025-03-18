@@ -6,7 +6,6 @@ export const getColonyInventory = async (id) => {
 }
 
 export const displayColonyInventory = async (id) => {
-    debugger
     const response = await fetch(`http://localhost:8088/colonyInventory?colonyId=${id}`)
     const inventory = await response.json()
 
@@ -40,7 +39,7 @@ export const displayColonyInventory = async (id) => {
     })
 
     const mineralHTML = Array.from(colonyMinerals).map(([name, quantity]) => {
-        return `<div ${quantity === 0 ? "disabled" : ""}>${quantity} tones of ${name}</div>`
+        return `<div class="minerals__inventory" ${quantity === 0 ? "disabled" : ""}>${quantity} tones of ${name}</div>`
     }).join("")
 
     colonyHTML += mineralHTML

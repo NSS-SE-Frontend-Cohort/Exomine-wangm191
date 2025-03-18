@@ -24,7 +24,7 @@ export const updateSpaceCart = async () => {
     let spaceCartHTML = "<h2>Space Cart</h2>"
 
     const chosenMinerals = expandedMinerals.map(mineral => {
-        return `<div>1 tone of ${mineral.name}</div>`
+        return `<div class="minerals__inventory">1 tone of ${mineral.name}</div>`
     }).join("")
 
     spaceCartHTML += chosenMinerals
